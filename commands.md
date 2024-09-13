@@ -23,7 +23,7 @@ python -m cookiecutter https://github.com/botcity-dev/bot-python-template/archiv
 5. Digite o comando: 
 
 ```bash
-conda create --name botPythonBoth python=3.10
+conda create -n <name_project\> python=3.10 anaconda
 ```
 
 6. Selecionar o ambiente virtual com python 3.10;
