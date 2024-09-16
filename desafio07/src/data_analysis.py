@@ -14,12 +14,12 @@ def data_analysis():
     sample = dataset.sample(frac=0.1, replace=True, random_state=1)
 
     dataset.to_csv(
-        r"C:\Users\matutino\Documents\projects\BotCity\desafio05\assets\csv\dataset.csv"
+        r"C:\Users\matutino\Documents\projects\BotCity\desafio07\assets\csv\dataset.csv"
     )  # salvar o CSV da web
 
 
     sample.to_csv(
-        r"C:\Users\matutino\Documents\projects\BotCity\desafio05\assets\csv\sample.csv"
+        r"C:\Users\matutino\Documents\projects\BotCity\desafio07\assets\csv\sample.csv"
     )  # salvar a amostra
 
     # substituir valores nulos
@@ -123,7 +123,7 @@ def data_analysis():
 
     # correlação em Mapa de Calor
     sns.heatmap(sample_brazil_corr.corr())
-    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio05\assets\images\sample_brazil_corr_map.png")
+    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio07\assets\images\sample_brazil_corr_map.png")
 
     # Plotando os dados no tempo
     fig = px.histogram(
@@ -136,7 +136,7 @@ def data_analysis():
 
     # fig.update_layout(bargap=0.1)
     # fig.show()
-    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio05\assets\images\new_cases_brazil.png")
+    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio07\assets\images\new_cases_brazil.png")
 
     fig = px.histogram(
         sample_argen,
@@ -148,7 +148,7 @@ def data_analysis():
 
     # fig.update_layout(bargap=0.1)
     # fig.show()
-    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio05\assets\images\new_cases_argen.png")
+    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio07\assets\images\new_cases_argen.png")
 
     fig = px.histogram(
         sample_chile,
@@ -160,7 +160,7 @@ def data_analysis():
 
     # fig.update_layout(bargap=0.1)
     # fig.show()
-    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio05\assets\images\new_cases_chile.png")
+    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio07\assets\images\new_cases_chile.png")
 
     # Comparando os Novos Casos das amostras de Brasil, Argentina e Chile
     sns.set_theme(style="darkgrid")
@@ -173,7 +173,7 @@ def data_analysis():
     # plt.show()
 
     # salvar graficos gerados
-    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio05\assets\images\new_cases_countries.png")
+    plt.savefig(r"C:\Users\matutino\Documents\projects\BotCity\desafio07\assets\images\new_cases_countries.png")
 
     # images = [img01, img02, img03]
     # return images
