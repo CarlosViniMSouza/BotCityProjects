@@ -1,6 +1,0 @@
-name: desafio05
-channels:
-  - conda-forge
-  - defaults
-dependencies:
-  - python

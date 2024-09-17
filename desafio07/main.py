@@ -4,12 +4,12 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), 'src'))
 
 from data_analysis import data_analysis
-from report_calc import report_calc
+from report_excel import report_excel
 
 def main():
     try:
         data_analysis()
-        report_calc()
+        report_excel()
 
     except Exception as ex:
         print(f"Error: {ex}")

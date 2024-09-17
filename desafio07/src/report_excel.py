@@ -1,19 +1,33 @@
-from botcity.plugins.excel import BotExcelPlugin
+import openpyxl
+import os
+
+if not os.path.exists(r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\desafio07\assets\docs"):
+    os.mkdir(r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\desafio07\assets\docs")
 
 def report_excel():
-    # Instancie o plugin
-    bot_excel = BotExcelPlugin()
+    wrkb = openpyxl.Workbook()
+  
+    # Numero de planilhas
+    ws = wrkb.worksheets[0]
+    
+    # Inserir imagem01
+    img1 = openpyxl.drawing.image.Image(r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\desafio07\assets\images\img01.png") 
+    img1.anchor = 'A2'
+    ws.add_image(img1)
 
-    # Leia em um arquivo do Excel
-    bot_excel.read('read.xlsx')
-    # Adicione uma linha
-    bot_excel.add_row([0, 22])
-    # Classifique pelas colunas A e B em ordem descendente
-    bot_excel.sort(['a', 'b'], False)
+    img2 = openpyxl.drawing.image.Image(r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\desafio07\assets\images\img02.png") 
+    img2.anchor = 'M2'
+    ws.add_image(img2)
 
-    # Imprima o resultado
-    print(bot_excel.as_list())
-    # Salve -o em um novo arquivo
-    bot_excel.write('write.xlsx')
+    img3 = openpyxl.drawing.image.Image(r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\desafio07\assets\images\img03.png") 
+    img3.anchor = 'A28'
+    ws.add_image(img3)
 
-report_excel()
+    img4 = openpyxl.drawing.image.Image(r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\desafio07\assets\images\img04.png") 
+    img4.anchor = 'M28'
+    ws.add_image(img4)
+
+    # Salvar em um novo .xlsx
+    wrkb.save(r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\desafio07\assets\docs\report.xlsx")
+
+# report_excel() -> descomente para executar isoladamente
