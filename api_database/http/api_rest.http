@@ -1,0 +1,91 @@
+// Inserir usuario
+POST http://127.0.0.1:5000/usuario
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+    "nome": "Gabriel Pereira Goncalves",
+    "login": "gabriel",
+    "senha": "123",
+    "email": "gabriel@gmail.com"
+}
+// Utiliza-se obrigatoriamente no início da linha os simbolos: ###
+// para separar uma requisção da outra. 
+###
+
+POST http://127.0.0.1:5000/usuario
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+    "nome": "Bruno Pereira Goncalves",
+    "login": "bruno",
+    "senha": "111",
+    "email": "bruno@gmail.com"
+}
+// Utiliza-se obrigatoriamente no início da linha os simbolos: ###
+// para separar uma requisção da outra. 
+###
+
+// Listar todos os usuários em ordem alfabética do nome
+GET http://127.0.0.1:5000/usuario 
+Content-Type: application/json
+###
+
+// Obter usuário pelo ID
+//GET http://127.0.0.1:5000/usuario/{id}
+GET http://127.0.0.1:5000/usuario/2
+Content-Type: application/json
+###
+
+// Alterar usuário pelo ID
+// OBS: obrigado preencher o campo ID
+PUT http://127.0.0.1:5000/usuario 
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+  "id": 4,
+  "nome": "Sophia Goncalves",
+  "login": "sophia",
+  "email": "sophia@gmail.com",
+  "senha": "456"
+}
+###
+
+// Obter usuário pelo ID
+GET http://localhost:8080/user/11
+Content-Type: application/json
+###
+// Deletar usuário pelo ID
+DELETE http://127.0.0.1:5000/usuario/3
+Content-Type: application/json
+###
+// Listar todos os usuários em ordem alfabética do nome
+GET http://localhost:8080/user/list 
+Content-Type: application/json
+###
+// Validar Usuário pelo Login e Senha
+POST http://localhost:8080/user/validarLogin/admin/123123
+Content-Type: application/json
+###
+
+// API para obter o CEP
+GET https://viacep.com.br/ws/69037000/json/
+Content-Type: application/json
+###
+
+POST http://127.0.0.1:5000/produto
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+  "descricao" : "Arroz",
+  "unidade" : "Kg",
+  "quantidade" : 3,
+  "preco_real" : 5.60,
+  "preco_dolar": 25
+}
+// Utiliza-se obrigatoriamente no início da linha os simbolos: ###
+// para separar uma requisção da outra. 
+###

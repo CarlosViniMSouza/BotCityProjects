@@ -1,7 +1,7 @@
 # Desafio 07
 
 **Objetivo:** Desenvolver um script em Python que automatize o processo de download de dados sobre COVID-19 a partir de um site específico, salve os dados em um arquivo local e gere um gráfico a partir desses dados. O desafio envolve acessar um site confiável de estatísticas sobre COVID-19, baixar os dados mais recentes, processá-los e visualizar as informações por meio de um gráfico. No final gere um relatório em excel.
-    
+
 - https://covid.ourworldindata.org
     
 **Instruções:**
