@@ -51,14 +51,14 @@ $ pip install -r requirements.txt # agora é só aguardar o fim do processo
 5. Agora é só executar o arquivo `service_api.py`:
 
 ```bash
-$ flask --app service_api run
+$ flask --app service_api run # (coloque o --debug para ativar a função debug)
 ```
 
 ## Rotas Funcionando (No momento)
 
-1. Cria um usuário:
+1. Criar usuário:
 
-- (POST) http://127.0.0.1:5000/user
+- ROTA: (POST) http://127.0.0.1:5000/user
 
 ```json
 {
@@ -71,15 +71,15 @@ $ flask --app service_api run
 
 2. Listar usuários criados:
 
-- (GET) http://127.0.0.1:5000/users
+- ROTA: (GET) http://127.0.0.1:5000/users
 
 3. Obter usuário pelo ID (numero '1' é um exemplo)
 
-- (GET) http://127.0.0.1:5000/user/1
+- ROTA: (GET) http://127.0.0.1:5000/user/1
 
 4. Alterar usuário pelo ID
 
-- (PUT) http://127.0.0.1:5000/user
+- ROTA: (PUT) http://127.0.0.1:5000/user
 
 ```json
 {
@@ -93,11 +93,11 @@ $ flask --app service_api run
 
 5. Deletar usuário pelo ID
 
-- (DEL) http://127.0.0.1:5000/user/1
+- ROTA: (DEL) http://127.0.0.1:5000/user/1
 
 6. Criar produto
 
-- (POST) http://127.0.0.1:5000/product
+- ROTA: (POST) http://127.0.0.1:5000/product
 
 ```json
 {

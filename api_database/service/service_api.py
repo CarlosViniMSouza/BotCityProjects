@@ -2,7 +2,9 @@ from flask import Flask, make_response, jsonify, request, Response
 
 import sys, os
 
-module = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'repository'))
+module = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), '..', 'repository'
+))
 sys.path.append(module)
 
 import user
@@ -17,6 +19,7 @@ app_api.config['JSON_SORT_KEYS'] = False
 def list_users():
     list_users = list()
     list_users = user.list_users()
+
     if len(list_users) == 0:
         success = False
         _message = 'List Empty'
