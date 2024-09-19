@@ -1,4 +1,4 @@
 git add .
-git commit -m "api_database - funcionando"
+git commit -m "api_database - api_rest.http OK"
 git push -u origin main
 git status
