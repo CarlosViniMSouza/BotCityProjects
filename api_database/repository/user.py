@@ -22,6 +22,25 @@ def check_user_exists(id):
 
     return exists
 
+# Add Usuario com as devidas informações
+def create_user(user):
+    try:
+        conect = database.create_db()
+        cursor = conect.cursor()
+        sql = f"INSERT INTO user(name, login, password, email) VALUES('{user['name']}','{user['login']}', '{user['password']}', '{user['email']}')"
+
+        cursor.execute(sql)
+        last_id = cursor.lastrowid
+        conect.commit()
+
+    except Exception as ex:
+        print(f'Erro: {ex}')
+
+        cursos.close()
+        conect.close()
+
+    return last_id
+
 # Fornecer lista de Usuarios
 def list_users():
     users = list()
@@ -73,21 +92,6 @@ def get_user_id(id):
         print(f'Erro: {ex}')
 
     return users
-
-# Add Usuario com as devidas informações
-def create_user(user):
-    try:
-        conect = database.create_db()
-        cursor = conect.cursor()
-        sql = f"INSERT INTO user(name, login, password, email) VALUES('{user['name']}','{user['login']}', '{user['password']}', '{user['email']}')"
-        cursor.execute(sql)
-        last_id = cursor.lastrowid
-        conect.commit()
-
-    except Exception as ex:
-        print(f'Erro: {ex}')
-
-    return last_id
 
 # Atualizar infos cadastradas
 def update_user(user):
