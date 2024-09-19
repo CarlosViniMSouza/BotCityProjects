@@ -6,7 +6,7 @@ def check_user_exists(id):
 
     try:
         conect = database.create_db()
-        cursor = conect.cursor() 
+        cursor = conect.cursor()
         sql = f"SELECT * FROM user WHERE id = '{id}'"
         
         cursor.execute()

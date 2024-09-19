@@ -13,6 +13,11 @@ import product
 app_api = Flask('api_database')
 app_api.config['JSON_SORT_KEYS'] = False
 
+# Rota pra inicio da API #
+@app_api.route('/', methods=['GET'])
+def hello_world():
+    return "Hello, Fantastic World"
+
 # -- Inicio: Serviços da api usuário
 
 @app_api.route('/users', methods=['GET'])
