@@ -1,116 +1,116 @@
 import database 
 
-# Verificar se Usuário existe
+# Verificar se Usuario existe
 def check_user_exists(id):
-    existe: False
+    exists: False
+
     try:
         conect = database.create_db()
         cursor = conect.cursor() 
-        sql = f"SELECT * FROM user WHERE id = '{id}'" 
+        sql = f"SELECT * FROM user WHERE id = '{id}'"
+        
         cursor.execute()
-        list_user = cursor.fetchall()
-        if len(list_user) == 0:
-            existe = False
+        list_users = cursor.fetchall()
+        
+        if len(list_users) == 0:
+            exists = False
         else:
-            existe = True
+            exists = True
+
     except Exception as ex:
-        print(f'Erro na verificacao do user: {ex}')
+        print(f'Erro: {ex}')
 
-    return existe
+    return exists
 
-# Fornecer lista de usuários
+# Fornecer lista de Usuarios
 def list_users():
     users = list()
+
     try:
         conect = database.create_db()
         cursor = conect.cursor() 
-        sql = 'SELECT * FROM user ORDER BY nome'
+        sql = 'SELECT * FROM user ORDER BY name'
+
         cursor.execute(sql)
-        list_user = cursor.fetchall()
-        # Tratar dados para uma estrutura JSON
-        for user in list_user:
-            users.append(
-                {
-                  'id': user[0],
-                  'nome': user[1],
-                  'login': user[2],
-                  'senha': user[3],
-                  'email': user[4]
-                }
-            )
+        list_users = cursor.fetchall()
+
+        for user in list_users:
+            users.append({
+                'id': user[0],
+                'name': user[1],
+                'login': user[2],
+                'password': user[3],
+                'email': user[4]
+            })
+
     except Exception as ex:
         print(f'Erro: Listar user: {ex}')
-    
-    return users
-# Fim: list_users() 
 
+    return users
+
+# Buscar Usuario pelo ID
 def get_user_id(id):
     users = list()
+
     try:
         conect = database.create_db()
         cursor = conect.cursor() 
-        sql = f"SELECT * FROM user WHERE id = '{id}'" 
+        sql = f"SELECT * FROM user WHERE id = '{id}'"
+
         cursor.execute(sql)
-        list_user = cursor.fetchall()
-        # Tratar dados para uma estrutura JSON
-        for user in list_user:
-            users.append(
-                {
-                  'id': user[0],
-                  'nome': user[1],
-                  'login': user[2],
-                  'senha': user[3],
-                  'email': user[4]
-                }
-            )
+        list_users = cursor.fetchall()
+
+        for user in list_users:
+            users.append({
+                'id': user[0],
+                'name': user[1],
+                'login': user[2],
+                'password': user[3],
+                'email': user[4]
+            })
+
     except Exception as ex:
-        print(f'Erro: obter user pelo id: {ex}')
+        print(f'Erro: {ex}')
 
     return users
-# Fim: obter_user_id(id)
 
+# Add Usuario com as devidas informações
 def create_user(user):
     try:
-        # Manipular o banco de dados
         conect = database.create_db()
         cursor = conect.cursor()
-        sql = f"INSERT INTO user(nome, login, senha, email) VALUES('{user['nome']}','{user['login']}', '{user['senha']}', '{user['email']}')"
+        sql = f"INSERT INTO user(name, login, password, email) VALUES('{user['name']}','{user['login']}', '{user['password']}', '{user['email']}')"
         cursor.execute(sql)
         last_id = cursor.lastrowid
         conect.commit()
+
     except Exception as ex:
-        print(f'Erro: Falha na inclusão: {ex}')
+        print(f'Erro: {ex}')
 
-    return last_id 
-# Fim: create_user(user)
+    return last_id
 
-
+# Atualizar infos cadastradas
 def update_user(user):
     try:
-        # Manipular o banco de dados
         conect = database.create_db()
         cursor = conect.cursor()
-        sql = f"UPDATE user SET nome = '{user['nome']}', login = '{user['login']}', senha = '{user['senha']}', email = '{user['email']}' WHERE id = '{user['id']}' "
+        sql = f"UPDATE user SET name = '{user['name']}', login = '{user['login']}', password = '{user['password']}', email = '{user['email']}' WHERE id = '{user['id']}'"
+
         cursor.execute(sql)
         conect.commit()
+
     except Exception as ex:
-        print(f'Erro: Falha na atualização: {ex}')
+        print(f'Erro: {ex}')
 
-# Fim: create_user(user)
-
+# Remover Usuario
 def delete_user(id):
     try:
-        # Manipular o banco de dados
         conect = database.create_db()
         cursor = conect.cursor()
         sql = f'DELETE FROM user WHERE id = {id}'
+
         cursor.execute(sql)
         conect.commit()
+
     except Exception as ex:
-        print(f'Erro: Falha na deleção do user: {ex}')
-# Fim: update_user
-
-
-
-
-    
+        print(f'Erro: {ex}')

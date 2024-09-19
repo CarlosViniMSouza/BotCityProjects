@@ -1,16 +1,16 @@
 import mysql.connector 
 
-def criar_db():
+def create_db():
     try:
-        # Configuração do Banco de Dados MySQL
         mydb = mysql.connector.connect(
             host='localhost',
-            port='3307',
+            port='3306',
             user='root',
             password='',
-            database='Banco'
+            database='db_lg_dev'
         )
+
     except Exception as ex:
-        print(f'Ocorreu erro na conexao com o Banco de Dados: {ex}')
+        print(f'Error: {ex}')
 
     return mydb

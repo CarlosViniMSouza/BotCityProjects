@@ -1,0 +1,81 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "LG - BotCity",
+    "collectionId": "411dacfb-543a-47b2-9e31-2cb98e8fa1c2",
+    "dateExported": "2024-09-19T02:45:17.062Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "fec234cf-1e46-421b-9469-2bf5309f8937",
+            "colId": "411dacfb-543a-47b2-9e31-2cb98e8fa1c2",
+            "containerId": "",
+            "name": "POST - Add User",
+            "url": "http://127.0.0.1:5000/user",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2024-09-18T23:11:27.446Z",
+            "modified": "2024-09-19T02:18:05.918Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Carlos Souza\",\n  \"login\": \"carlos\",\n  \"password\": \"admin123\",\n  \"email\": \"carlos@gmail.com\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "a6af74e8-94f1-4004-98f8-8f09f98f0574",
+            "colId": "411dacfb-543a-47b2-9e31-2cb98e8fa1c2",
+            "containerId": "",
+            "name": "GET - Check User ID",
+            "url": "http://127.0.0.1:5000/user/1",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2024-09-19T02:16:26.576Z",
+            "modified": "2024-09-19T02:17:44.245Z",
+            "headers": []
+        },
+        {
+            "_id": "6e172360-ac79-4e1f-8a2a-5a5db71da600",
+            "colId": "411dacfb-543a-47b2-9e31-2cb98e8fa1c2",
+            "containerId": "",
+            "name": "PUT - Update User",
+            "url": "http://127.0.0.1:5000/user",
+            "method": "PUT",
+            "sortNum": 20000,
+            "created": "2024-09-19T02:24:12.635Z",
+            "modified": "2024-09-19T02:26:45.682Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Carlos Souza\",\n  \"login\": \"carlosvinimsouza\",\n  \"password\": \"admin123\",\n  \"email\": \"carlosvinimsouza@gmail.com\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "8cab336c-6d23-48c7-926a-60f5ceae6ba8",
+            "colId": "411dacfb-543a-47b2-9e31-2cb98e8fa1c2",
+            "containerId": "",
+            "name": "GET - List Users",
+            "url": "http://127.0.0.1:5000/users",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2024-09-19T02:19:26.627Z",
+            "modified": "2024-09-19T02:21:46.443Z",
+            "headers": []
+        },
+        {
+            "_id": "dc14da1b-f07a-4262-a586-64eb27daf551",
+            "colId": "411dacfb-543a-47b2-9e31-2cb98e8fa1c2",
+            "containerId": "",
+            "name": "GET - Delete User by ID",
+            "url": "http://127.0.0.1:5000/user/1",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2024-09-19T02:30:28.983Z",
+            "modified": "2024-09-19T02:30:39.904Z",
+            "headers": []
+        }
+    ],
+    "ref": "l9STkOS-FptNtplEeWn1J6jxXYI3zWSOzCK7ms09UAcCkvDgecVNVBLSrIhNLlZujKU_eFB3rHVc8Kx4qim9AA"
+}

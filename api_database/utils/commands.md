@@ -9,3 +9,9 @@ Certifique-se de estar na pasta do desafio ´api_database´
 3. Baixar as dependências: `$ pip install -r requirements.txt`
 
 4. Rodar aplicação: `$ flask --app service_api run --debug` (debug ativado!)
+
+5. Mesclando tudo:
+
+```bash
+$ python -m virtualenv venv && source venv/Scripts/activate && pip install -r requirements.txt && flask --app service_api run
+```

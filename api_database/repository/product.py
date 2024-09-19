@@ -1,19 +1,19 @@
-import dadabase 
+import database 
 
-def create_product(produto):
+def create_product(product):
     try:
-        # Manipular o banco de dados
-        conect = dadabase.criar_db()
+        conect = database.create_db()
         cursor = conect.cursor()
 
-        sql = f"INSERT INTO produto(descricao, unidade, quantidade, preco_real, preco_dolar) VALUES('{produto['descricao']}','{produto['unidade']}', '{produto['quantidade']}', '{produto['preco_real']}','{produto['preco_dolar']}')"
+        sql = f"INSERT INTO product(description, unit, quantity, real_price, dolar_price) VALUES('{product['description']}','{product['unit']}', '{product['quantity']}', '{product['real_price']}','{product['dolar_price']}')"
 
         print(sql)
-        
+
         cursor.execute(sql)
         last_id = cursor.lastrowid
         conect.commit()
+
     except Exception as ex:
-        print(f'Erro: Falha na inclusão: {ex}')
+        print(f'Erro: {ex}')
 
     return last_id 
