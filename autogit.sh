@@ -1,4 +1,4 @@
 git add .
-git commit -m "api_database - user.py - create_user() atualizado"
+git commit -m "api_database - user.py - funcoes atualizadas"
 git push -u origin main
 git status

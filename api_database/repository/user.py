@@ -36,7 +36,8 @@ def create_user(user):
     except Exception as ex:
         print(f'Erro: {ex}')
 
-        cursos.close()
+    finally:
+        cursor.close()
         conect.close()
 
     return last_id
@@ -65,6 +66,10 @@ def list_users():
     except Exception as ex:
         print(f'Erro: Listar user: {ex}')
 
+    finally:
+        cursor.close()
+        conect.close()
+
     return users
 
 # Buscar Usuario pelo ID
@@ -91,6 +96,10 @@ def get_user_id(id):
     except Exception as ex:
         print(f'Erro: {ex}')
 
+    finally:
+        cursor.close()
+        conect.close()
+
     return users
 
 # Atualizar infos cadastradas
@@ -106,6 +115,10 @@ def update_user(user):
     except Exception as ex:
         print(f'Erro: {ex}')
 
+    finally:
+        cursor.close()
+        conect.close()
+
 # Remover Usuario
 def delete_user(id):
     try:
@@ -118,3 +131,7 @@ def delete_user(id):
 
     except Exception as ex:
         print(f'Erro: {ex}')
+
+    finally:
+        cursor.close()
+        conect.close()
