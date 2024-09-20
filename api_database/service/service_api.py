@@ -119,8 +119,6 @@ def delete_user(id):
         )
     )    
 
-# -- Fim: Serviços da api usuário ---------------------
-
 # -- Inicio : Serviços da api product ---------------------
 
 @app_api.route('/product', methods=['POST'])
@@ -140,7 +138,7 @@ def create_product():
     return make_response(
         jsonify(
             status = success,
-            message = _message ,
+            message = _message,
             id = id_product
         )
     )

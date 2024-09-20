@@ -1,0 +1,96 @@
+// Inserir user
+POST http://127.0.0.1:5000/user
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+    "name": "Carlos Souza",
+    "login": "carlos",
+    "password": "admin123",
+    "email": "carlos@gmail.com"
+}
+// Utiliza-se obrigatoriamente no início da linha os simbolos: ###
+// para separar uma requisção da outra. 
+###
+
+POST http://127.0.0.1:5000/user
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+    "name": "Vinicius Monteiro",
+    "login": "viniciusmonteiro",
+    "password": "admin123",
+    "email": "vinicius@gmail.com"
+}
+// Utiliza-se obrigatoriamente no início da linha os simbolos: ###
+// para separar uma requisção da outra. 
+###
+
+// Listar todos os usuários em ordem alfabética do name
+GET http://127.0.0.1:5000/users
+Content-Type: application/json
+###
+
+// Obter usuário pelo ID
+//GET http://127.0.0.1:5000/user/{id}
+GET http://127.0.0.1:5000/user/1
+Content-Type: application/json
+###
+
+// Alterar usuário pelo ID
+// OBS: obrigado preencher o campo ID
+PUT http://127.0.0.1:5000/user 
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+  "id": 1,
+  "name": "Carlos Vini. M. Souza",
+  "login": "carlos",
+  "email": "carlos@gmail.com",
+  "password": "admin123"
+}
+###
+
+// Obter usuário pelo ID
+GET http://127.0.0.1:5000/user/1
+Content-Type: application/json
+###
+
+// Deletar usuário pelo ID
+DELETE http://127.0.0.1:5000/user/2
+Content-Type: application/json
+
+###
+// Listar todos os usuários em ordem alfabética do name - (IMPLEMENT)
+GET http://127.0.0.1:5000/user/list
+Content-Type: application/json
+
+###
+// Validar Usuário pelo Login e password - (IMPLEMENT)
+POST http://127.0.0.1:5000/user/validarLogin/admin/123123
+Content-Type: application/json
+###
+
+// API para obter o CEP
+GET https://viacep.com.br/ws/69037000/json/
+Content-Type: application/json
+###
+
+POST http://127.0.0.1:5000/product
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body)
+
+{
+  "description" : "Arroz",
+  "unit" : "Kg",
+  "quantity" : 3,
+  "real_price" : 5.60,
+  "dolar_price": 25
+}
+###
+
+// Utiliza-se obrigatoriamente no início da linha os simbolos: ###
+
+// para separar uma requisção da outra.

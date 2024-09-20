@@ -16,4 +16,8 @@ def create_product(product):
     except Exception as ex:
         print(f'Erro: {ex}')
 
+    finally:
+        cursor.close()
+        conect.close()
+
     return last_id 
