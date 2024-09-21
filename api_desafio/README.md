@@ -1,12 +1,12 @@
 # API Database
 
-**Objetivo:** Desenvolver uma API com Flask e MySQL para gerenciar usuários e produtos.
+**Objetivo:** Desenvolver uma API com Flask e MySQL para gerenciar produtos.
     
 **Instruções:**
     
 1. **Criação do Ambiente de Desenvolvimento:**
     - Crie um ambiente virtual (venv) para o projeto.
-    - Instale as bibliotecas necessárias para automação, download de arquivos e visualização de dados.
+    - Instale as bibliotecas necessárias para automação, extração dos dados e inserção de infos.
 
 2. **Criação do Banco de Dados:**
     - Utilize o XAMPP para administrar o banco de dados.
@@ -24,11 +24,11 @@
 
 ### **Passo a Passo**
 
-`OBS.: Verifique se o seu terminal está na pasta do projeto, isso é: (...)/BotCityProjects/api_database`
+`OBS.: Verifique se o seu terminal está na pasta do projeto, isso é: (...)/BotCityProjects/api_desafio`
 
 1. Crie e ative o ambiente virtual Python no seu terminal - será necessário para baixar as dependências:
 
-- Recomendo a biblioteca [virtualenv](https://virtualenv.pypa.io/en/latest/user_guide.html), pois o conda tem me causado problemas.
+- Recomendo a biblioteca [virtualenv](https://virtualenv.pypa.io/en/latest/product_guide.html), pois o conda tem me causado problemas.
 
 ```bash
 $ python -m virtualenv venv # criar ambiente virtual (de nome 'venv')
@@ -54,57 +54,47 @@ $ pip install -r requirements.txt # agora é só aguardar o fim do processo
 $ flask --app service_api run # (coloque o --debug para ativar a função debug)
 ```
 
-## Rotas Funcionando (No momento)
+## Rotas da Aplicação
 
-1. Criar usuário:
+### Funcionando no Momento
 
-- ROTA: (POST) http://127.0.0.1:5000/user
-
-```json
-{
-    "name": "Carlos Souza",
-    "login": "carlos",
-    "password": "admin123",
-    "email": "carlos@gmail.com"
-}
-```
-
-2. Listar usuários criados:
-
-- ROTA: (GET) http://127.0.0.1:5000/users
-
-3. Obter usuário pelo ID (numero '1' é um exemplo)
-
-- ROTA: (GET) http://127.0.0.1:5000/user/1
-
-4. Alterar usuário pelo ID
-
-- ROTA: (PUT) http://127.0.0.1:5000/user
-
-```json
-{
-  "id": 1,
-  "name": "Carlos Vini. M. Souza",
-  "login": "carlos",
-  "email": "carlos@gmail.com",
-  "password": "admin123"
-}
-```
-
-5. Deletar usuário pelo ID
-
-- ROTA: (DEL) http://127.0.0.1:5000/user/1
-
-6. Criar produto
+1. Criar produto:
 
 - ROTA: (POST) http://127.0.0.1:5000/product
 
 ```json
 {
-  "description" : "Arroz",
-  "unit" : "Kg",
-  "quantity" : 3,
-  "real_price" : 5.60,
-  "dolar_price": 25
+  "description": "Mandioca",
+  "unit": "Kg",
+  "quantity": 20,
+  "real_price": 500.0
 }
 ```
+
+### A implementar ...
+
+2. Listar produtos criados:
+
+- ROTA: (GET) http://127.0.0.1:5000/products
+
+3. Obter produto pelo ID (numero '1' é um exemplo)
+
+- ROTA: (GET) http://127.0.0.1:5000/product/14
+
+4. Alterar produto pelo ID
+
+- ROTA: (PUT) http://127.0.0.1:5000/product
+
+```json
+{
+    "id": 14,
+    "description": "Mandioca Especial",
+    "unit": "Kg",
+    "quantity": 40,
+    "real_price": 600.0
+}
+```
+
+5. Deletar produto pelo ID
+
+- ROTA: (DEL) http://127.0.0.1:5000/product/1
