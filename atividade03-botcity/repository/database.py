@@ -1,6 +1,5 @@
 import mysql.connector
 
-
 def criar_db():
     try:
         # Configuração do Banco de Dados MySQL
