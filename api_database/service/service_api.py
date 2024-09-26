@@ -20,6 +20,27 @@ def hello_world():
 
 # -- Inicio: Serviços da api usuário
 
+@app_api.route('/user', methods=['POST'])
+def create_user():
+    user_json = request.json
+
+    try:
+        id_user = user.create_user(user_json)
+        success = True
+        _message = 'User inserted sucessfully'
+
+    except Exception as ex:
+        success = False
+        _message = f'Erro: {ex}'
+    
+    return make_response(
+        jsonify(
+            status = success,
+            message = _message ,
+            id = id_user
+        )
+    )
+
 @app_api.route('/users', methods=['GET'])
 def list_users():
     list_users = list()
@@ -60,27 +81,6 @@ def get_user_id(id):
         )
     )
 
-@app_api.route('/user', methods=['POST'])
-def create_user():
-    user_json = request.json
-
-    try:
-        id_user = user.create_user(user_json)
-        success = True
-        _message = 'User inserted sucessfully'
-
-    except Exception as ex:
-        success = False
-        _message = f'Erro: {ex}'
-    
-    return make_response(
-        jsonify(
-            status = success,
-            message = _message ,
-            id = id_user
-        )
-    )
-
 @app_api.route('/user', methods=['PUT'])
 def update_user():
     user_json = request.json
@@ -117,7 +117,7 @@ def delete_user(id):
             status = success,
             mensagem = _message
         )
-    )    
+    ) 
 
 # -- Inicio : Serviços da api product ---------------------
 

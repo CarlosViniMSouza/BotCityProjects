@@ -64,7 +64,7 @@ def list_users():
             })
 
     except Exception as ex:
-        print(f'Erro: Listar user: {ex}')
+        print(f'Erro: {ex}')
 
     finally:
         cursor.close()
