@@ -1,4 +1,4 @@
-from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 from datetime import datetime
 import requests
@@ -29,16 +29,26 @@ import spreadsheet.spreadsheet as spreadsheet
 
 BotMaestroSDK.RAISE_NOT_CONNECTED = False
 
-def insert_user(user):
-    print(user + "\n")
+def execute_api():
+    http = BotHttpPlugin("https://economia.awesomeapi.com.br/last/USD-BRL")
 
-    url = "http://127.0.0.1:5000/user"
+    return http.get_as_json()
+
+def insert_product(product, dolar_value):
+    print(product)
+
+    updated_value = float(dolar_value) * float(product['PRECO_REAL'])
+
+    print(updated_value)
+
+    url = "http://127.0.0.1:5000/product"
     headers = {'Content-Type': 'application/json'}
     data = {
-        "name": user['NOME'],
-        "login": user['LOGIN'],
-        "email": user['EMAIL'],
-        "password": user['SENHA'],
+        "description": product['DESCRICAO'],
+        "unit": product['UNIDADE'],
+        "quantity": product['QUANTIDADE'],
+        "real_price": product['PRECO_REAL'],
+        "dolar_price": updated_value
     } # I left it in lowercase
 
     print(data)
@@ -55,7 +65,7 @@ def insert_user(user):
         print(f"Error Exception: {ex}")
 
 def main():
-    print("Part 01\n")
+    print("Part 01")
 
     maestro = BotMaestroSDK.from_sys_args()
     execution = maestro.get_execution()
@@ -65,17 +75,20 @@ def main():
 
     bot = WebBot()
     bot.headless = False
-    bot.browser = Browser.CHROME
-    bot.driver_path = ChromeDriverManager().install()
+    bot.browser = Browser.EDGE
+    bot.driver_path = EdgeChromiumDriverManager().install()
 
     # process to execute
     print("Start of processing ...")
 
-    print('Show Spreadsheet')
-    df = spreadsheet.read_excel(r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_pdf_excel\spreadsheet\RelacaoUsuario.xlsx", 'Plan1')
+    returnJSON = execute_api()
+    dolar_value = returnJSON['USDBRL']['high']
 
-    for index, user in df.iterrows():
-        insert_user(user)
+    print('Show Spreadsheet')
+    df = spreadsheet.read_excel(r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_pdf_excel\spreadsheet\RelacaoProduto.xlsx", 'Plan1')
+
+    for index, product in df.iterrows():
+        insert_product(product, dolar_value)
 
     spreadsheet.show_data_excel(df)
 
