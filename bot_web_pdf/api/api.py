@@ -40,7 +40,7 @@ def create_user():
         )
     )
 
-@app_api.route('/users', methods=['GET'])
+@app_api.route('/user', methods=['GET'])
 def list_users():
     list_users = list()
     list_users = user.list_users()
@@ -143,7 +143,7 @@ def create_product():
         )
     )
 
-@app_api.route('/products', methods=['GET'])
+@app_api.route('/product', methods=['GET'])
 def list_products():
     list_products = list()
     list_products = product.list_products()
