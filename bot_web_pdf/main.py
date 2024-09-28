@@ -8,15 +8,31 @@ import sys, os
 import requests
 from datetime import datetime
 
-import spreadsheet.spreadsheet as spreadsheet
-
-path_email = os.path.abspath(os.path.join(
-    os.path.dirname(__file__), '..', 'email'
+module = os.path.abspath(os.path.join(
+    os.path.dirname(__file__), 'src'
 ))
-sys.path.append(path_email)
+sys.path.append(module)
 
-import email as email
-import pdf.pdf as pdf
+import e_mail, pdf, spreadsheet
+
+# import email.email as email
+# import pdf.pdf as pdf
+# import spreadsheet.spreadsheet as spreadsheet
+
+file01_link01 = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\spreadsheet\RelacaoProduto.xlsx"
+file01_link02 = r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_web_pdf\spreadsheet\RelacaoProduto.xlsx"
+
+file02_link01 = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\ListaProduto.pdf"
+file02_link02 = r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_web_pdf\resources\ListaProduto.pdf"
+
+file03_link01 = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\SiteProduto.pdf"
+file03_link02 = r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_web_pdf\resources\SiteProduto.pdf"
+
+file04_link01 = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\Produtos.pdf"
+file04_link02 = r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_web_pdf\resources\Produtos.pdf"
+
+attachment_file_path01 = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\Produtos.pdf"
+attachment_file_path02 = r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_web_pdf\resources\Produtos.pdf"
 
 def access_site(bot):
     # Acessar site
@@ -34,7 +50,7 @@ def access_site(bot):
     bot.enter()
     bot.wait(1000)
     # Imprimir página do site para arquivo PDF
-    bot.print_pdf(r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\SiteProduto.pdf")
+    bot.print_pdf(file03_link02)
 
 def api_get_dolar_value():
     http = BotHttpPlugin('https://economia.awesomeapi.com.br/last/USD-BRL')
@@ -102,7 +118,7 @@ def main():
     dolar_value=returnJSON['USDBRL']['high']
 
     print('Leitura do arquivo Excel...')
-    file_excel = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\spreadsheet\RelacaoProduto.xlsx"
+    file_excel = file01_link02
     sheet = 'Plan1'
 
     df = spreadsheet.read_excel(file_excel, sheet)
@@ -119,13 +135,13 @@ def main():
     
     print('Gerando arquivo produtos.pdf com o merge entre os arquivos: ListaProduto.pdf + SiteProduto.pdf...')
     list_pdf = []
-    list_pdf.append(r'C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\ListaProduto.pdf')
-    list_pdf.append(r'C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\SiteProduto.pdf')
-    pdf.merge_pdfs(list_pdf, r'C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\Produtos.pdf')
+    list_pdf.append(file02_link02)
+    list_pdf.append(file03_link02)
+    pdf.merge_pdfs(list_pdf, file04_link02)
     
     print('Enviando E-mail para a lista de usuario com arquivo Produtos.pdf em anexo.')
     
-    attachment_file = r'C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\Produtos.pdf'
+    attachment_file = attachment_file_path02
 
     users_json = api_list_users()
     list_users = users_json['data']
@@ -136,10 +152,10 @@ def main():
 
         topic = "Lista de produtos"
         content = "<h1>Sistema Automatizado!</h1> Em anexo, a lista de products."
-        email.send_email_attachment(recipient, topic, content, attachment_file)    
-    
+        e_mail.send_email_attachment(recipient, topic, content, attachment_file)    
+
     print('Fim do processamento...')
-     
+
 def not_found(label):
     print(f"Element not found: {label}")
 

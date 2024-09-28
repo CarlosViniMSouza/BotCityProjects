@@ -19,8 +19,14 @@ def merge_pdfs(list_pdf, file_output):
     merger.close()
 
 def create_pdf(products):
-    file_logo = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\pdf\banner.png"
-    to_file = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\ListaProduto.pdf"
+    logo01_path = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\pdf\banner.png"
+    logo02_path = r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_web_pdf\pdf\banner.png"
+
+    destiny01_path = r"C:\Users\matutino\Documents\projects\BotCity\bot_web_pdf\resources\ListaProduto.pdf"
+    destiny02_path = r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_web_pdf\resources\ListaProduto.pdf"
+
+    file_logo = logo02_path
+    to_file = destiny02_path
     
     pdf = SimpleDocTemplate(to_file, pagesize=A4)
 

@@ -1,12 +1,8 @@
 from botcity.plugins.email import BotEmailPlugin
 
-"""
-recipient = destinatario
-topic = assunto
-content = conteudo
-"""
-
 def send_email(recipient, topic, content):
+    # recipient = destinatario | topic = assunto | content = conteudo
+
     email = BotEmailPlugin()
     
     email.configure_imap("imap.gmail.com", 993)
@@ -21,8 +17,10 @@ def send_email(recipient, topic, content):
     email.send_message(subject, body, to, use_html=True)
     email.disconnect()
 
-# same as the function above
 def send_email_attachment(recipient, topic, content, attachment):
+    # recipient = destinatario | topic = assunto
+    # content = conteudo | attachment = anexo 
+
     email = BotEmailPlugin()
     
     email.configure_imap("imap.gmail.com", 993)
