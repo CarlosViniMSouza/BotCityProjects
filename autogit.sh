@@ -1,4 +1,4 @@
 git add .
-git commit -m "bot_eleitor - API + Excel funcionou"
+git commit -m "resources in .gitignore"
 git push -u origin main
 git status

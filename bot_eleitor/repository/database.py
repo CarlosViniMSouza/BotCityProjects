@@ -7,7 +7,7 @@ def create_db():
             port='3306',
             user='root',
             password='',
-            database='bot_eleitor_dev'
+            database='bot_eleitor'
         )
 
     except Exception as ex:
