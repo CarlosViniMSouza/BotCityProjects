@@ -1,7 +1,7 @@
 0. Crie um venv (Opcional):
 
 ```bash
-python -m virtualenv .venv
+python -m virtualenv venv
 ```
 
 1. Atualizar cookiecutter:
