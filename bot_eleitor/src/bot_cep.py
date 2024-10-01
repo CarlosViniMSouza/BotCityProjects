@@ -16,14 +16,12 @@ sys.path.append(module)
 import bot_tse
 import pdf
 import spreadsheet
-import e_mail
 
 BotMaestroSDK.RAISE_NOT_CONNECTED = False
 
 # Primeiro arquivo
 file01_link01 = r"C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\RelacaoEleitor.xlsx"
 file01_link02 = r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_eleitor\resources\RelacaoEleitor.xlsx"
-path_pdf_merge = r"C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\PDFsMerged.pdf"
 
 
 def insert_voter(voter):
@@ -52,11 +50,6 @@ def insert_voter(voter):
     except Exception as ex:
         print(f"Erro Exception: {ex}")
 
-def api_list_users():
-    http = BotHttpPlugin("http://127.0.0.1:5000/users")
-
-    return http.get_as_json()
-
 def api_get_voters_cep():
     http = BotHttpPlugin("http://127.0.0.1:5000/voter")
     returnJSON = http.get_as_json()
@@ -79,7 +72,6 @@ def consult_cep(cep):
     else:
         return None
 
-
 def main():
     maestro = BotMaestroSDK.from_sys_args()
     execution = maestro.get_execution()
@@ -87,20 +79,18 @@ def main():
     print(f"Task ID is: {execution.task_id}")
     print(f"Task Parameters are: {execution.parameters}")
 
-    # bot_tse.bot_tse() # Fazer o processo no site do TSE
+    bot_tse.bot_tse() # Fazer o processo no site do TSE
 
     print("Leitura do arquivo Excel...")
-    file_excel = file01_link01
+    file_excel = file01_link02
     sheet = "CPF"
 
     df = spreadsheet.read_excel(file_excel, sheet)
-    # spreadsheet.show_data_excel(df)
-
-    # print("Inserindo eleitores no banco de data...")
-    # for index, item in df.iterrows():
-    #     insert_voter(item)
-
     spreadsheet.show_data_excel(df)
+
+    print("Inserindo eleitores no banco de data...")
+    for index, item in df.iterrows():
+        insert_voter(item)
 
     print("Acessando API dos CEPs")
 
@@ -124,32 +114,8 @@ def main():
         else:
             print(f"Não foi possível consultar o CEP: {cep}")
 
-    # print("Gerando arquivo PDF com a lista de CEPs...")
-    # pdf.create_pdf_ceps(ceps_searched)
-
-    # print("PDFs meclados")
-    # list_pdf = []
-    # list_pdf.append(r"C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\ListaCEP.pdf")
-    # list_pdf.append(r"C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\1664388206.pdf")
-# 
-    # pdf.merge_pdfs(list_pdf, path_pdf_merge)
-
-    print("Enviando E-mail para a lista de usuario com arquivo Produtos.pdf em anexo.")
-
-    attachment_file = path_pdf_merge
-
-    users_json = api_list_users()
-    list_users = users_json["data"]
-
-    for user in list_users:
-        recipient = user["email"]
-        print(f"Enviando e-mail para: {recipient}")
-
-        topic = "Infos do Eleitor"
-        content = "<h1>Sistema Automatizado!</h1> Em anexo, a suas infos."
-        e_mail.send_email_attachment(recipient, topic, content, attachment_file)
-
-    print("Fim do processamento...")
+    print("Gerando arquivo PDF com a lista de CEPs...")
+    pdf.create_pdf_ceps(ceps_searched)
 
 def not_found(label):
     print(f"Element not found: {label}")

@@ -6,7 +6,7 @@ import os
 module = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "repository"))
 sys.path.append(module)
 
-import voter  # noqa: E402
+import user, voter  # noqa: E402
 
 app_api = Flask("bot_eleitor")
 app_api.config["JSON_SORT_KEYS"] = False
@@ -17,6 +17,106 @@ app_api.config["JSON_SORT_KEYS"] = False
 def hello_world():
     return "API do Eleitor - OK"
 
+# -- Inicio: Serviços da api usuário
+@app_api.route('/user', methods=['POST'])
+def create_user():
+    user_json = request.json
+    id_user=0
+
+    try:
+        id_user = user.create_user(user_json)
+        success = True
+        _message = 'User inserted sucessfully'
+
+    except Exception as ex:
+        success = False
+        _message = f'Erro: {ex}'
+    
+    return make_response(
+        jsonify(
+            status = success,
+            message = _message,
+            id = id_user
+        )
+    )
+
+@app_api.route('/users', methods=['GET'])
+def list_users():
+    list_users = list()
+    list_users = user.list_users()
+
+    if len(list_users) == 0:
+        success = False
+        _message = 'List Empty'
+    else:
+        success = True
+        _message = 'List User OK'
+
+    return make_response(
+        jsonify(
+            status = success, 
+            message = _message,
+            data = list_users
+        )
+    )
+
+@app_api.route('/user/<int:id>', methods=['GET'])
+def get_user_id(id):
+    user_id = list()
+    user_id = user.get_user_id(id)
+
+    if len(user_id) == 0:
+        success = False
+        _message = 'User not found'
+    else:
+        success = True
+        _message = 'User founded'
+
+    return make_response(
+        jsonify(
+            status = success, 
+            _message = _message,
+            data = user_id
+        )
+    )
+
+@app_api.route('/user', methods=['PUT'])
+def update_user():
+    user_json = request.json
+
+    try:
+        user.update_user(user_json)
+        success = True
+        _message = 'User updated successfully'
+
+    except Exception as ex:
+        success = False
+        _message = f'Erro: {ex}'
+    
+    return make_response(
+        jsonify(
+            status = success,
+            message = _message
+        )
+    )
+
+@app_api.route('/user/<int:id>', methods=['DELETE'])
+def delete_user(id):
+    try:
+        user.delete_user(id)
+        success = True
+        _message = 'User deleted successfully'
+
+    except Exception as ex:
+        success = False
+        _message = f'Erro: {ex}'
+    
+    return make_response(
+        jsonify(
+            status = success,
+            mensagem = _message
+        )
+    ) 
 
 # -- Inicio: Serviços da api usuário
 @app_api.route("/voter", methods=["POST"])

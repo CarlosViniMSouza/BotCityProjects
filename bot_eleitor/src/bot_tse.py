@@ -3,16 +3,29 @@ from botcity.web import WebBot, Browser, By
 from botcity.maestro import *
 from botcity.plugins.http import BotHttpPlugin
 
-# from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 from PyPDF2 import PdfReader, PdfWriter
 
 from pdf import merge_pdfs
 from spreadsheet import read_excel
 
-import requests
+import pdf as pdf
+import e_mail as e_mail
 
+import requests
+from datetime import datetime
+
+def api_list_voters():
+    http=BotHttpPlugin('http://127.0.0.1:5000/voter')
+
+    return http.get_as_json()
+
+def api_list_users():
+    http=BotHttpPlugin('http://127.0.0.1:5000/user')
+
+    return http.get_as_json()
 
 def extract_data(bot):
     data = {}
@@ -29,12 +42,41 @@ def extract_data(bot):
 
     return data
 
+def create_voter(voter):
+    url = 'http://127.0.0.1:5000/voter'
+    headers = {'Content-Type': 'application/json'}
+    
+    # Converte a data de nascimento de string para objeto datetime
+    birthday = datetime.strptime(voter["DATA_NASCIMENTO"], '%d%m%Y').strftime('%d/%m/%Y')
+
+    data = {
+        "cpf": voter["CPF"],
+        "nome": voter["NOME"],
+        "data_nascimento": birthday,
+        "nome_mae": voter["NOME_MAE"],
+        "cep": voter["CEP"],
+        "nro_endereco": voter["NRO_ENDERECO"],
+    }
+
+    try:
+        response = requests.post(url=url, headers=headers, json=data)
+        response.raise_for_status()  # Verifica se houve algum erro na requisição
+
+        # Retorna a resposta em formato JSON
+        retornJSON = response.json()
+        return retornJSON  # Retorna o resultado se necessário
+
+    except requests.exceptions.HTTPError as err:
+        print(f"Erro HTTP: {err}")
+    except Exception as e:
+        print(f"Erro: {e}")
+
 
 def print_data_extracted(voter, mother, birthday, cpf, data_extracted):
     # Formata a data de nascimento para dd/mm/aa
     birthday_format = birthday[:2] + '/' + birthday[2:4] + '/' + birthday[4:]  # (dd/mm/aa)
     
-    print("\n=== data Extraídos ===")
+    print("\n=== Dados Extraídos ===")
     print(f"Nome: {voter}")
     print(f"Mãe: {mother}")
     print(f"Data de Nascimento: {birthday_format}")
@@ -97,16 +139,30 @@ def access_tse_site(bot, file_excel):
         # função - Chama a função para imprimir os data extraídos
         print_data_extracted(voter, mother, birthday, cpf, data_extracted)
 
-        # Salva o PDF com o nome completo
-        file_pdf = f'{cpf}_{data_extracted["nro_titulo"]}.pdf'  # Adicione a extensão .pdf aqui
-        path_pdf = fr'C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_eleitor\resources\{file_pdf}'
+        # Salva o PDF com o nome completo (CPF por enquanto)
+        file_pdf = f'{cpf}.pdf'  # Adicione a extensão .pdf aqui
+        path_pdf = fr'C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\{file_pdf}'
         bot.print_pdf(path_pdf)
 
         # Aguardar um pouco para garantir que o PDF foi salvo
-        bot.wait(2000)
+        bot.wait(3000)
 
         # Adiciona o caminho completo do PDF à lista
         list_pdf.append(path_pdf)
+
+        # Salva os dados no banco de dados
+        # Atualiza a variável eleitor com os dados necessários
+        infos_voter = {
+            "CPF": cpf,
+            "NOME": voter,
+            "DATA_NASCIMENTO": birthday,
+            "NOME_MAE": mother,
+            "CEP": row['CEP'],
+            "NRO_ENDERECO": row['NRO_ENDERECO']
+        }
+
+        # Salva no banco de dados
+        create_voter(infos_voter)
 
         # Voltar à tela anterior
         bot.find_element('//*[@id="content"]/app-root/div/app-consultar-numero-titulo-eleitor/div[2]/button', By.XPATH).click()  # Botão de voltar
@@ -116,7 +172,7 @@ def access_tse_site(bot, file_excel):
 
     # Chama a função de mesclagem após processar todos os eleitores
     if list_pdf:
-        path_output = r'C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_eleitor\resources\ArquivosMesclados.pdf'
+        path_output = r'C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\ArquivosMesclados.pdf'
         merge_pdfs(list_pdf, path_output)
         print(f"PDFs mesclados em: {path_output}")
 
@@ -127,16 +183,17 @@ def bot_tse():
     bot = WebBot()
     bot.headless = False
 
-    # bot.browser = Browser.CHROME
-    # bot.driver_path = ChromeDriverManager().install()
+    bot.browser = Browser.CHROME
+    bot.driver_path = ChromeDriverManager().install()
 
-    bot.browser = Browser.EDGE
-    bot.driver_path = EdgeChromiumDriverManager().install()
+    # bot.browser = Browser.EDGE
+    # bot.driver_path = EdgeChromiumDriverManager().install()
     
     print('Inicio do processamento...')
     bot.start_browser()
-    bot.maximize_window()
-    file_excel = r'C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_eleitor\resources\RelacaoEleitor.xlsx'
+    # bot.maximize_window()
+    file_excel = r'C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\RelacaoEleitor.xlsx'
+
     access_tse_site(bot, file_excel)
 
     print('Fim do processamento...')
