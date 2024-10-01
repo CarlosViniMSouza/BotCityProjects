@@ -18,7 +18,6 @@ def merge_pdfs(list_pdf, file_output):
     merger.write(file_output)
     merger.close()
 
-
 def create_pdf_voters(voters):
     # logo01_path = r"C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\banner.png"
     logo02_path = r"C:\Users\CarlosViniMSouza\Documents\Projects\BotCityProjects\bot_eleitor\resources\banner.png"

@@ -1,5 +1,5 @@
 # from botcity.web import WebBot, Browser, By
-from botcity.maestro import *  # noqa: F403
+from botcity.maestro import *
 from botcity.plugins.http import BotHttpPlugin
 
 # from webdriver_manager.chrome import ChromeDriverManager
@@ -13,10 +13,11 @@ module = os.path.abspath(os.path.join(os.path.dirname(__file__), "src"))
 sys.path.append(module)
 
 # import e_mail
-import pdf  # noqa: E402
-import spreadsheet  # noqa: E402
+import bot_tse
+import pdf
+import spreadsheet
 
-BotMaestroSDK.RAISE_NOT_CONNECTED = False  # noqa: F405
+BotMaestroSDK.RAISE_NOT_CONNECTED = False
 
 # Primeiro arquivo
 file01_link01 = r"C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\RelacaoEleitor.xlsx"
@@ -91,11 +92,13 @@ def consult_cep(cep):
 
 
 def main():
-    maestro = BotMaestroSDK.from_sys_args()  # noqa: F405
+    maestro = BotMaestroSDK.from_sys_args()
     execution = maestro.get_execution()
 
     print(f"Task ID is: {execution.task_id}")
     print(f"Task Parameters are: {execution.parameters}")
+
+    bot_tse.bot_tse() # Fazer o processo no site do TSE
 
     print("Leitura do arquivo Excel...")
     file_excel = file01_link02
