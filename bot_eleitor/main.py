@@ -1,18 +1,22 @@
-from botcity.web import WebBot, Browser, By
-from botcity.maestro import *
-from botcity.plugins.http import BotHttpPlugin
+# from botcity.web import WebBot, Browser, By
+from botcity.maestro import *  # noqa: F403
+# from botcity.plugins.http import BotHttpPlugin
 
-from webdriver_manager.chrome import ChromeDriverManager
+# from webdriver_manager.chrome import ChromeDriverManager
 
-import sys, os 
+import sys
+import os
 import requests
+import json
 
 module = os.path.abspath(os.path.join(os.path.dirname(__file__), "src"))
 sys.path.append(module)
 
-import e_mail, pdf, spreadsheet
+# import e_mail
+# import pdf
+import spreadsheet  # noqa: E402
 
-BotMaestroSDK.RAISE_NOT_CONNECTED = False
+BotMaestroSDK.RAISE_NOT_CONNECTED = False  # noqa: F405
 
 # Primeiro arquivo
 file01_link01 = r"C:\Users\matutino\Documents\projects\BotCity\bot_eleitor\resources\RelacaoEleitor.xlsx"
@@ -27,27 +31,27 @@ def insert_voter(voter):
     #     'cpf': voter['CPF'],
     #     'nome': voter['NOME'],
     #     'data_nascimento': voter['DATA_NASCIMENTO'],
-    #     'nome_mae': voter['NOME_MAE'], 
-    #     'cep': voter['CEP'], 
+    #     'nome_mae': voter['NOME_MAE'],
+    #     'cep': voter['CEP'],
     #     'nro_endereco': voter['NRO_ENDERECO'],
-    #     'nro_titulo': voter['NRO_TITULO'], 
-    #     'situacao': voter['SITUACAO'], 
-    #     'secao': voter['SECAO'], 
-    #     'zona': voter['ZONA'], 
-    #     'local_votacao': voter['LOCAL_VOTACAO'], 
-    #     'endereco_votacao': voter['ENDERECO_VOTACAO'], 
+    #     'nro_titulo': voter['NRO_TITULO'],
+    #     'situacao': voter['SITUACAO'],
+    #     'secao': voter['SECAO'],
+    #     'zona': voter['ZONA'],
+    #     'local_votacao': voter['LOCAL_VOTACAO'],
+    #     'endereco_votacao': voter['ENDERECO_VOTACAO'],
     #     'bairro': voter['BAIRRO'],
-    #     'municipio_uf': voter['MUNICIPIO_UF'], 
+    #     'municipio_uf': voter['MUNICIPIO_UF'],
     #     'pais': voter['PAIS']
     # }
 
     data = {
-        'cpf': voter['CPF'],
-        'nome': voter['NOME'],
-        'data_nascimento': voter['DATA_NASCIMENTO'],
-        'nome_mae': voter['NOME_MAE'], 
-        'cep': voter['CEP'], 
-        'nro_endereco': voter['NRO_ENDERECO'],
+        "cpf": voter["CPF"],
+        "nome": voter["NOME"],
+        "data_nascimento": json.dumps(str(voter["DATA_NASCIMENTO"])),
+        "nome_mae": voter["NOME_MAE"],
+        "cep": voter["CEP"],
+        "nro_endereco": voter["NRO_ENDERECO"],
     }
 
     try:
@@ -55,14 +59,17 @@ def insert_voter(voter):
         response.raise_for_status()
         returnJSON = response.json()
 
+        return returnJSON
+
     except requests.exceptions.HTTPError as err:
         print(f"Erro HTTP: {err}")
 
     except Exception as ex:
         print(f"Erro Exception: {ex}")
 
+
 def main():
-    maestro = BotMaestroSDK.from_sys_args()
+    maestro = BotMaestroSDK.from_sys_args()  # noqa: F405
     execution = maestro.get_execution()
 
     print(f"Task ID is: {execution.task_id}")
@@ -74,6 +81,10 @@ def main():
 
     df = spreadsheet.read_excel(file_excel, sheet)
     spreadsheet.show_data_excel(df)
+
+    print("Inserindo eleitores no banco de data...")
+    for index, item in df.iterrows():
+        insert_voter(item)
 
 
 def not_found(label):

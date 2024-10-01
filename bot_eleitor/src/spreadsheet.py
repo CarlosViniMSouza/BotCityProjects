@@ -1,5 +1,4 @@
 import pandas as pd
-from openpyxl import load_workbook
 from IPython.display import display
 
 def read_excel(path_file, name_spreadsheet):

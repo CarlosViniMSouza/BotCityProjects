@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./bot_web_pdf/src",
+        "./bot_eleitor/repository"
+    ]
+}

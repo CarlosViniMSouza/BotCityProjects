@@ -1,0 +1,71 @@
+// Inserir eleitor
+POST http://127.0.0.1:5000/voter
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+  "cpf": 12345678900,
+  "nome": "Fulano",
+  "data_nascimento": "1/01/2001",
+  "nome_mae": "Mae do Fulano",
+  "cep": "12345-123",
+  "nro_endereco": "01"
+}
+// Utiliza-se obrigatoriamente no início da linha os simbolos: ###
+// para separar uma requisção da outra. 
+###
+
+POST http://127.0.0.1:5000/voter
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+  "cpf": 12345678910,
+  "nome": "Beltrano",
+  "data_nascimento": "1/01/2001",
+  "nome_mae": "Mae do Beltrano",
+  "cep": "12345-123",
+  "nro_endereco": "02"
+}
+// Utiliza-se obrigatoriamente no início da linha os simbolos: ###
+// para separar uma requisção da outra. 
+###
+
+// Listar todos os usuários em ordem alfabética do name
+GET http://127.0.0.1:5000/voter
+Content-Type: application/json
+###
+
+// Obter usuário pelo cpf
+//GET http://127.0.0.1:5000/voter/{cpf}
+GET http://127.0.0.1:5000/voter/12345678900
+Content-Type: application/json
+###
+
+// Alterar usuário pelo cpf
+// OBS: obrigado preencher o campo cpf
+PUT http://127.0.0.1:5000/voter
+Content-Type: application/json
+// OBS: É necessário pular uma linha, quando existir um corpo (body) 
+
+{
+  "cpf": 12345678900,
+  "nome": "Carlos Vini. M. Souza",
+  "data_nascimento": "14/01/2001",
+  "nome_mae": "Mae do Carlos",
+  "cep": "12345-123",
+  "nro_endereco": "03"
+}
+###
+
+// Obter usuário pelo cpf
+GET http://127.0.0.1:5000/voter/70390243221
+Content-Type: application/json
+###
+
+// Deletar usuário pelo cpf
+DELETE http://127.0.0.1:5000/voter/12345678900
+Content-Type: application/json
+
+// Utiliza-se obrigatoriamente no início da linha os simbolos: ###
+// para separar uma requisção da outra.

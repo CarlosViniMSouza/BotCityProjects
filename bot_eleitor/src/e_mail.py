@@ -1,11 +1,12 @@
-from botcity.plugins.email import BotEmailPlugin
+from botcity.plugins.email import BotEmailPlugin  # type: ignore
+
 
 def send_email_attachment(recipient, topic, content, attachment):
     # recipient = destinatario | topic = assunto
-    # content = conteudo | attachment = anexo 
+    # content = conteudo | attachment = anexo
 
     email = BotEmailPlugin()
-    
+
     email.configure_imap("imap.gmail.com", 993)
     email.configure_smtp(host_address="smtp.gmail.com", port=587)
 
